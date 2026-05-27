@@ -1,0 +1,70 @@
+<html>
+<head>
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial;
+    background:#0b3d0b;
+}
+
+.box{
+    background:darkgreen;
+    padding:30px;
+    border-radius:15px;
+    width:300px;
+    color:white;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:limegreen;
+    border:none;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.error{
+    color:red;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Login</h2>
+
+<form action="/autenticar" method="POST">
+
+<input name="login" placeholder="Login">
+<input type="password" name="senha" placeholder="Senha">
+
+<button type="submit">Entrar</button>
+
+</form>
+
+{% if erro %}
+<p class="error">{{ erro }}</p>
+{% endif %}
+
+</div>
+
+</body>
+</html>

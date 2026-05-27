@@ -1,0 +1,230 @@
+<html>
+
+<head>
+
+<style>
+
+form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+body{
+    margin:0;
+    padding:0;
+
+    background-image:url("/static/fundo4.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    display:flex;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100vh;
+
+    font-family:Arial;
+}
+
+.menu{
+    background:darkgreen;
+
+    width:400px;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0px 0px 15px rgba(0,0,0,0.5);
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+}
+
+h1{
+    color:white;
+
+    text-align:center;
+
+    margin:0;
+
+    margin-bottom:10px;
+}
+
+label{
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+}
+
+.titulo_crie{
+    color:white;
+
+    text-align:center;
+
+    margin:0;
+
+    margin-bottom:10px;
+}
+
+.titulo_criados{
+    color:white;
+
+    text-align:center;
+
+    margin:0;
+
+    margin-bottom:10px;
+}
+
+
+
+
+input{
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:16px;
+}
+
+input:focus{
+    outline:none;
+
+    box-shadow:0px 0px 10px lime;
+}
+
+button{
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:limegreen;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+}
+
+button:active{
+    transform:scale(0.97);
+}
+
+.layall{
+     display: flex;
+
+     justify-content: space-between;
+
+     gap: 30px;
+}
+
+.lay1{
+    background:darkgreen;
+
+    width:800px;
+   
+    height:800px;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0px 0px 15px rgba(0,0,0,0.5);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-start;
+
+    gap:15px;
+}
+
+.lay2{
+    background:darkgreen;
+
+    width:800px;
+   
+    height:800px;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0px 0px 15px rgba(0,0,0,0.5);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-start;
+
+    gap:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="layall">
+<div class="lay1">
+<h1 class="titulo_crie">Crie o treino</h1>
+
+<form action="/salvar_treino" method="POST">
+
+<label>Nome do treino</label>
+<input type="text" name="nome_treino">
+
+
+<label>Descrição</label>
+<input type="text" name="descricao">
+
+<label>Data do treino</label>
+<input type="date" name="data">
+
+<button type="submit">Salvar</button>
+</form>
+
+
+<a href="/">
+<button>Voltar</button>
+</a>
+</div>
+
+
+</div>
+
+<div class="lay2">
+       <h1 class="titulo_criados">Treinos criados</h1>
+  {% for treino in treinos %}
+        <div style="background:#0a3d0a; padding:15px; border-radius:10px; color:white;">
+            <h3>{{ treino[0] }}</h3>
+            <p>{{ treino[1] }}</p>
+            <small>{{ treino[2] }}</small>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+</html>

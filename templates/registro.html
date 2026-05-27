@@ -1,0 +1,155 @@
+<html>
+<head>
+<style>
+
+body{
+    margin:0;
+    padding:0;
+
+    background-image:url("/static/fundo4.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    display:flex;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100vh;
+
+    font-family:Arial;
+}
+
+
+.container{
+    display:flex;
+    gap:20px;
+}
+
+.box{
+    background:darkgreen;
+    padding:20px;
+    border-radius:15px;
+    width:350px;
+    color:white;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:limegreen;
+    border:none;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- ESQUERDA -->
+<div class="box">
+
+<h2>Registrar Treino</h2>
+
+<form action="/salvar_registro" method="POST">
+
+<label>Aluno</label>
+<select name="aluno">
+    {% for a in alunos %}
+        <option value="{{ a[0] }}">{{ a[1] }}</option>
+    {% endfor %}
+</select>
+
+<label>Treino</label>
+<select name="treino">
+    {% for t in treinos %}
+        <option value="{{ t[0] }}">{{ t[1] }}</option>
+    {% endfor %}
+</select>
+
+<label>Descrição</label>
+<input type="text" name="descricao">
+
+<label>Pontuação</label>
+<input type="number" name="pontuacao">
+
+<button type="submit">Salvar</button>
+
+</form>
+<a href="/">
+<button>Voltar</button>
+</a>
+</div>
+</div>
+
+<!-- DIREITA -->
+<div class="box">
+
+<h2>Desempenho do Aluno</h2>
+
+<select id="alunoSelect">
+    <option value="">Selecione aluno</option>
+    {% for a in alunos %}
+        <option value="{{ a[0] }}">{{ a[1] }}</option>
+    {% endfor %}
+</select>
+
+<div id="resultado" style="margin-top:15px;"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const registros = {{ registros | tojson }};
+const select = document.getElementById("alunoSelect");
+const resultado = document.getElementById("resultado");
+
+select.addEventListener("change", function () {
+
+    let id = parseInt(this.value);
+
+    let filtrados = registros.filter(r => r[0] === id);
+
+    if (filtrados.length === 0){
+        resultado.innerHTML = "Sem registros";
+        return;
+    }
+
+    let total = 0;
+
+    filtrados.forEach(r => {
+        total += r[1];
+    });
+
+    let media = total / filtrados.length;
+
+    resultado.innerHTML =
+        "Total de pontos: " + total + "<br>" +
+        "Média: " + media.toFixed(1) + "<br>" +
+        "Quantidade de treinos: " + filtrados.length;
+});
+
+</script>
+
+</body>
+</html>

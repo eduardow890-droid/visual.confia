@@ -1,0 +1,149 @@
+<html>
+
+<head>
+
+<style>
+
+body{
+
+    margin:0;
+    padding:0;
+
+    background-image:url("/static/fundo3.jpeg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100vh;
+
+    font-family:Arial;
+}
+
+.menu{ 
+
+    background:darkgreen;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+    justify-content:center;
+
+    align-items:center;
+
+    width:400px;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0px 0px 15px rgba(0,0,0,0.5);
+}
+
+h1{
+
+    background:green;
+
+    text-align:center;
+
+    border-radius:20px;
+
+    color:white;
+
+    padding:20px;
+
+    width:100%;
+
+    font-family:Arial;
+
+    font-size:40px;
+
+    box-sizing:border-box;
+}
+
+button{ 
+
+    padding:28px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    width:220px;
+
+    background:limegreen;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+button:hover{
+
+    transform:scale(1.05);
+
+    background:#39ff14;
+}
+
+button:active{
+
+    transform:scale(0.97);
+}
+
+a{
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="menu">
+
+<h1>Sistema CONFIA</h1>
+
+<a href="/cadastro">
+
+<button>
+Cadastro
+</button>
+
+</a> 
+
+<a href="/treinos">
+
+<button>
+Treinos
+</button>
+
+</a>
+
+<a href="registro">
+
+<button>
+Registos
+</button>
+
+</a>
+
+</div>
+
+</body>
+
+</html>
