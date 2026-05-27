@@ -235,8 +235,16 @@ def salvar_registro():
 
 # ------------------ START ------------------
 
+import os
+
+criar_banco()
+criar_treinos()
+criar_registros()
+
 if __name__ == "__main__":
-    criar_banco()
-    criar_treinos()
-    criar_registros()
-    app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        debug=False
+    )
+    
