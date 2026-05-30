@@ -12,31 +12,40 @@ body{
     background-position:center;
     background-repeat:no-repeat;
     display:flex;
-
-
-    display:flex;
-
     justify-content:center;
-
     align-items:center;
-
-    height:100vh;
-
+    min-height:100vh;
     font-family:Arial;
 }
-
 
 .container{
     display:flex;
     gap:20px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    padding:20px;
 }
 
 .box{
     background:darkgreen;
     padding:20px;
     border-radius:15px;
-    width:350px;
+    width:420px;
     color:white;
+    box-shadow:0 0 20px rgba(0,0,0,0.25);
+}
+
+.box h2{
+    margin-top:0;
+    margin-bottom:15px;
+    font-size:1.4rem;
+}
+
+label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:6px;
+    font-weight:bold;
 }
 
 input, select{
@@ -49,12 +58,52 @@ input, select{
 
 button{
     width:100%;
-    padding:10px;
+    padding:12px;
     background:limegreen;
     border:none;
     color:white;
     font-weight:bold;
     cursor:pointer;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#57ff57;
+}
+
+.registro-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+.registro-table th,
+.registro-table td{
+    padding:12px;
+    border:1px solid #2f7a2f;
+}
+
+.registro-table th{
+    background:#1a4b1a;
+    color:#fff;
+    text-align:left;
+}
+
+.resultado-box{
+    margin-top:15px;
+    background:#145714;
+    padding:15px;
+    border-radius:12px;
+    min-height:120px;
+}
+
+.registro-summary{
+    margin-top:15px;
+    background:#296b29;
+    padding:15px;
+    border-radius:10px;
+    color:#fff;
 }
 
 </style>
@@ -94,7 +143,7 @@ button{
 <button type="submit">Salvar</button>
 
 </form>
-<a href="/">
+<a href="/sistema">
 <button>Voltar</button>
 </a>
 </div>
@@ -112,7 +161,7 @@ button{
     {% endfor %}
 </select>
 
-<div id="resultado" style="margin-top:15px;"></div>
+<div id="resultado" class="resultado-box"></div>
 
 </div>
 
@@ -128,25 +177,46 @@ select.addEventListener("change", function () {
 
     let id = parseInt(this.value);
 
-    let filtrados = registros.filter(r => r[0] === id);
+    let filtrados = registros.filter(r => r.aluno_id === id);
 
     if (filtrados.length === 0){
-        resultado.innerHTML = "Sem registros";
+        resultado.innerHTML = "<p>Sem registros</p>";
         return;
     }
 
     let total = 0;
-
-    filtrados.forEach(r => {
-        total += r[1];
-    });
+    let linhas = filtrados.map(r => {
+        total += r.pontuacao;
+        return `
+            <tr>
+                <td>${r.treino}</td>
+                <td>${r.descricao}</td>
+                <td style="text-align:center;">${r.pontuacao}</td>
+            </tr>
+        `;
+    }).join("");
 
     let media = total / filtrados.length;
 
-    resultado.innerHTML =
-        "Total de pontos: " + total + "<br>" +
-        "Média: " + media.toFixed(1) + "<br>" +
-        "Quantidade de treinos: " + filtrados.length;
+    resultado.innerHTML = `
+        <table class="registro-table">
+            <thead>
+                <tr>
+                    <th>Treino</th>
+                    <th>Descrição</th>
+                    <th style="text-align:center;">Pontos</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${linhas}
+            </tbody>
+        </table>
+        <div class="registro-summary">
+            <p style="margin:0;">Total de pontos: <strong>${total}</strong></p>
+            <p style="margin:0;">Média: <strong>${media.toFixed(1)}</strong></p>
+            <p style="margin:0;">Quantidade de treinos: <strong>${filtrados.length}</strong></p>
+        </div>
+    `;
 });
 
 </script>

@@ -199,8 +199,30 @@ def registro():
     cursor.execute("SELECT id, nome FROM treinos_futebol")
     treinos = cursor.fetchall()
 
-    cursor.execute("SELECT aluno_id, pontuacao FROM registros")
-    registros = cursor.fetchall()
+    cursor.execute("""
+    SELECT
+        registros.id,
+        usuarios.id,
+        usuarios.nome,
+        treinos_futebol.nome,
+        registros.descricao,
+        registros.pontuacao
+    FROM registros
+    JOIN usuarios ON registros.aluno_id = usuarios.id
+    JOIN treinos_futebol ON registros.treino_id = treinos_futebol.id
+    """)
+    registros_raw = cursor.fetchall()
+    registros = [
+        {
+            "id": row[0],
+            "aluno_id": row[1],
+            "aluno": row[2],
+            "treino": row[3],
+            "descricao": row[4],
+            "pontuacao": row[5]
+        }
+        for row in registros_raw
+    ]
 
     conexao.close()
 
